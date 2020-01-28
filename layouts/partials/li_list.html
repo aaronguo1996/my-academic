@@ -5,6 +5,7 @@
 {{ $icon := "fa-file-alt" }}
 {{ $show_authors := false }}
 {{ $show_buttons := false }}
+{{ $show_conference := false }}
 {{ $link := $item.RelPermalink }}
 {{ $target := "" }}
 {{ if $item.Params.external_link }}
@@ -18,6 +19,7 @@
 {{ else if eq $item.Type "publication" }}
   {{ $show_authors = true }}
   {{ $show_buttons = true }}
+  {{ $show_conference = true }}
 {{ else if eq $item.Type "project" }}
   {{ $icon_pack = "fas" }}
   {{ $icon = "fa-project-diagram" }}
@@ -45,6 +47,17 @@
   <div class="article-metadata">
     {{ partial "page_metadata_authors" $item }}
   </div>
+  {{ end }}
+
+  {{ if $show_conference = true }}
+    <div class="article-metadata">
+      {{ if $item.Params.publication }}
+        in <span class="font-italic"> {{ $item.Params.publication | markdownify }} </span>
+      {{ end }}
+      {{ if $item.Params.publication_short }}
+        <span class="pub-row-heading"> ({{ $item.Params.publication_short | markdownify }}) </span>
+      {{ end }}
+    </div>
   {{ end }}
 
   {{ if $show_buttons }}
