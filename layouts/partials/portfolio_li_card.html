@@ -3,6 +3,16 @@
 
 {{ $link := .link }}
 {{ $target := .target }}
+{{ $show_buttons := false }}
+{{/* Dynamic view adjusts to content type. */}}
+{{ $show_buttons := false }}
+{{ if eq $item.Type "talk" }}
+  {{ $show_buttons = true }}
+{{ else if eq $item.Type "publication" }}
+  {{ $show_buttons = true }}
+{{ else if eq $item.Type "project" }}
+  {{ $show_buttons = true }}
+{{ end }}
 
 {{/* Get summary. */}}
 {{ $summary := "" }}
@@ -32,6 +42,11 @@
       {{ with $summary }}
       <div class="article-style">
         <p>{{ . | truncate 135 }}</p>
+      </div>
+      {{ end }}
+      {{ if $show_buttons }}
+      <div class="btn-links">
+        {{ partial "page_links" (dict "page" $item "is_list" 1) }}
       </div>
       {{ end }}
     </div>

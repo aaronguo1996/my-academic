@@ -16,6 +16,8 @@
   {{ $icon = "fa-newspaper" }}
 {{ else if eq $item.Type "talk" }}
   {{ $icon = "fa-calendar-alt" }}
+  {{ $show_buttons = true }}
+  {{ $show_conference = true }}
 {{ else if eq $item.Type "publication" }}
   {{ $show_authors = true }}
   {{ $show_buttons = true }}
@@ -42,7 +44,7 @@
     {{ end }}
   </div>
   {{ end }}
-
+ 
   {{ if and $show_authors $item.Params.authors }}
   <div class="article-metadata">
     {{ partial "page_metadata_authors" $item }}
